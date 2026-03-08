@@ -6,72 +6,72 @@
 
 ## 概要（推奨される構成）
 
-このリポジトリは、ターゲットとなるプロジェクトのルート直下に **`env/`** という名前のディレクトリを作成し、その中に `git submodule` または `git clone` して配置して使用することを推奨しています。
+このリポジトリは、ターゲットとなるプロジェクトのルート直下に **`env/`** という名前のディレクトリを配置（`git submodule` 推奨）して使用します。
+AI エージェントが `/sync-env` コマンドを実行することで、`env/` 内のテンプレートが必要な形にリネームされ、プロジェクト直下へ展開されます。
 
 ```text
 プロジェクトルート/
-├── env/                <-- ここにこのリポジトリを配置
-│   ├── README.md
+├── env/                   <-- このリポジトリ (ReadOnly 推奨)
 │   ├── antigravityrule.template
+│   ├── agent_template/
 │   └── ...
-├── .antigravityrule    <-- 同期によって生成される
-└── .agent/             <-- 同期によって生成される
+├── .antigravityrule       <-- [生成] プロジェクトの目次
+├── .agent/                <-- [生成] AI 向けの命令・ワークフロー
+│   ├── rules/
+│   └── workflows/
+├── .github/               <-- [生成] CI/CD 設定
+│   └── workflows/
+├── .hooks/                <-- [生成] Git Hooks
+└── scripts/               <-- [生成] 便利スクリプト
 ```
 
-`env/` ディレクトリ内に「共有済みの本来の設定」を隔離しておくことで、プロジェクト本体の設定（ドット付きファイル）と明確に区別でき、AI による誤認識を防ぎつつ、いつでもクリーンな状態から共通設定を再展開できるようになります。
+## 同期の実態（ファイルマッピング）
 
-## ディレクトリ構成と役割
+`/sync-env` を実行すると、AI は `env/` 内のテンプレートを以下のようにプロジェクトルートへ展開し、必要に応じてリネーム（ドットの付与など）を行います。
 
-- **`antigravityrule.template`**
-  - AI エージェントの動作指針。Android, TypeScript, Python のインデックスを含みます。
-- **`agent_template/`**
-  - **`rules/`**: 共通（01-03）および技術スタック別（10-12）のルール定義。
-  - **`workflows/`**: `/save`, `/resume`, `/cleanup`, `/sync-env` コマンド定義。
-- **`github_template/`**
-  - GitHub Actions のワークフロー（共通、およびスタック別テンプレート）。
-- **`hooks_template/`**
-  - ローカル開発用の Git フック (`pre-commit`, `pre-push`)。
-- **`scripts_template/`**
-  - GitHub ラベルの自動セットアップやフック有効化スクリプト。
+| 同期元 (env/ 内) | 同期先 (プロジェクトルート) | 役割 |
+| :--- | :--- | :--- |
+| `antigravityrule.template` | `.antigravityrule` | AI エージェントのメイン動作指針・目次 |
+| `agent_template/rules/` | `.agent/rules/` | 開発規約、フェーズ別ルール定義 |
+| `agent_template/workflows/` | `.agent/workflows/` | `/save`, `/resume`, `/sync-env` などのコマンド定義 |
+| `github_template/workflows/` | `.github/workflows/` | GitHub Actions の自動化パイプライン |
+| `hooks_template/` | `.hooks/` | `pre-commit` などのローカル Git フック |
+| `scripts_template/` | `scripts/` | ラベル設定やフック有効化の自動実行スクリプト |
 
 ## 対応技術スタック
+
+本環境は、以下のスタックを標準サポートしています。
+
 - **Android**: Kotlin, Compose, Gradle, Android CI/CD
-- **TypeScript / GitHub Actions**: カスタムアクション開発、JavaScript/Node.js 基盤
-- **Python / Scraping**: スクレイピング、DB構築、CI での自動実行
+- **TypeScript**: GitHub Actions (Custom Action), JavaScript/Node.js
+- **Python**: スクレイピング, データ解析, CI 自動実行
 
-## 使い方（新規プロジェクトへの導入手順）
+## 使い方（導入手順）
 
-新しいリポジトリでこれらの共通ルールを適用する手順です。
+### 1. Submodule の追加
+プロジェクトのルートで以下を実行します。
+```bash
+git submodule add https://github.com/asabon/antigravity-shared-env.git env
+```
 
-1. **Submodule の追加**
-   プロジェクトのルートで以下を実行します。
-   ```bash
-   git submodule add https://github.com/asabon/antigravity-shared-env.git env
-   ```
+### 2. 初期同期の指示
+初めて導入する際は、AI に対して以下のように「同期ワークフローの直接実行」を指示してください。
 
-2. **初期同期の実行 (Initial Sync)**
-   この時点ではまだプロジェクト側に `/sync-env` コマンドが存在しません。AI エージェントに対し、**Submodule 内のファイルを直接指定して実行**するよう指示してください。
-   
-   **指示の例:**
-   > 「`env/agent_template/workflows/sync-env.md` を実行して、環境の同期を開始して」
+> 「`env/agent_template/workflows/sync-env.md` を実行して、環境の同期を開始して」
 
-3. **AI による「引き算」同期の自動実行**
-   指示を受けた AI がプロジェクトを分析し、以下の処理を自動で行います。
-   - 必要なテンプレートをリネーム（ドット付きに修正）してプロジェクトルートに展開
-   - 二回目以降のために `/sync-env` スラッシュコマンドを `.agent/workflows/` に配置
-   - プロジェクト構成を判定し、`.antigravityrule` 等から不要なスタックの記述を削除して最適化
+### 3. AI による「引き算」と最適化
+指示を受けた AI は、プロジェクトの構成を自動で分析し、以下の最適化を行います。
 
-同期完了後は、通常通り `/sync-env` コマンドでいつでも最新の共通設定にアップデートできるようになります。
+- **不要ルールの削除**: プロジェクトが Python を使っていない場合、`.antigravityrule` から Python 関連のインデックスを削除し、`.agent/rules/` から Python 用のルールファイルを削除します。
+- **CI/CD の選択**: プロジェクトの種類にマッチする GitHub Actions テンプレートのみを `.github/workflows/` に配置します。
+- **プロジェクト固有情報の維持**: すでにプロジェクト側に独自のルールや設定がある場合、それらを壊さないように配慮しながら共通設定を統合します。
+
+同期完了後は、プロジェクトルートに配置された `/sync-env` コマンドで、いつでも最新の共通設定にアップデートできるようになります。
 
 ## 改善・フィードバックの提案
 
-各プロジェクトで使用中に、共通ルールやテンプレートの改善点を見つけた場合は、以下の手順でフィードバックしてください。
+プロジェクトでの利用中に共通ルールの改善点を見つけた場合は、以下の手順でフィードバックしてください。
 
-1. **Issue の作成**:
-   このリポジトリ (`antigravity-shared-env`) に Issue を作成し、改善の要点や背景を記載してください。
-2. **プルリクエストの作成 (Optional)**:
-   もし可能であれば、改善案を反映したブランチを作成し、PR を出してください。
-3. **AI エージェントによる案内の活用**:
-   AI は作業中に「これは共通化すべき改善だ」と判断した場合、マニュアルでこのリポジトリへの Issue 作成を提案することがあります。
-
-共通リポジトリの安定性を保つため、**`main` ブランチへの直接プッシュは禁止されています。** すべての改善は PR を経由して取り込まれます。
+1. **Issue の作成**: 本リポジトリ (`antigravity-shared-env`) に Issue を作成してください。
+2. **プルリクエスト (PR)**: 改善案のブランチを作成し、PR を出してください。**`main` ブランチへの直接プッシュは禁止されています。**
+3. **AI による提案**: AI が「これは共通化すべき」と判断した場合、本リポジトリへの Issue 作成を提案することがあります。
