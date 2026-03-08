@@ -20,6 +20,8 @@
   - **コマンド例**: `gh issue develop <Issue番号> --name "<Issue番号>-kebab-case-description" --checkout`
 - **命名規則**: `<Issue番号>-<kebab-case-description>`
 - **アンチパターン**: `gh issue develop 17 --name "refactor-agent"` とすると、ブランチ名が `refactor-agent` になり番号が抜けるため**NG**です。
+- **事前チェック**: 破壊的操作 (commit, push) を行う前に、必ず `git branch --show-current` 等で現在作業中のブランチが意図通りであることを指差し確認してください。
+
 - **禁止事項**: 以下の行為は厳禁です。
   - **`main` ブランチへの直接 push**: すべての変更(ドキュメント修正を含む)は必ず作業ブランチを作成し、PR を経由してください。
   - **ブランチ名への日本語(全角文字)の使用**: 必ず英語(小文字のケバブケース)を使用してください。
