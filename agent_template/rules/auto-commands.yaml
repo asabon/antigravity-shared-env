@@ -1,0 +1,35 @@
+# 自動実行許可設定 (SafeToAutoRun: true)
+
+AI がユーザーの明示的な許可なく実行できるコマンドのリストです。
+これらのコマンドは、副作用が極めて小さい、または読み取り専用、あるいは開発中の頻繁な検証に必要なものに限定されています。
+
+## 1. 情報取得・読み取り (General)
+- `ls`, `dir`, `cat`, `type`
+- `pwd`, `cd` (Antigravity自体はcdを禁止しているが、コマンド内でのパス指定用)
+- `gh auth status`, `gh issue list`, `gh pr list`
+- `git status`, `git branch`, `git log`, `git diff`
+- `git remote -v`, `git submodule status`
+
+## 2. ビルド・検証・テスト (Standard)
+
+### Android
+- `./gradlew assembleDebug`, `./gradlew testDebugUnitTest`
+- `./gradlew ktlintCheck`, `./gradlew ktlintFormat`
+- `./gradlew lintDebug`
+
+### Node.js / TypeScript
+- `npm install`, `npm test`, `npm run lint`, `npm run build`
+- `yarn install`, `yarn test`, `yarn lint`
+
+### Python
+- `pip install -r requirements.txt`, `pip list`
+- `pytest`, `python -m pytest`
+- `black .`, `flake8`, `isort .`
+
+## 3. ファイル操作・検索
+- `fd`, `rg`, `grep`
+- `find_by_name`, `grep_search` 等の組み込みツール呼び出し
+
+## 4. Git (一部)
+- `git add` (コミット前のステージングのみ)
+- `git checkout` (既存ブランチへの切り替え、作業用ブランチの作成)
