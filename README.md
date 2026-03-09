@@ -13,7 +13,8 @@
 ├── .antigravityrule       <-- AI エージェントの動作指針・ルール目次
 ├── .agent/                <-- AI 向けの規約・ワークフロー定義
 │   ├── rules/             <-- 開発規約 (Workflow, Git, GitHub, スタック別)
-│   └── workflows/         <-- 自動化コマンド (/save, /resume, /sync-env 等)
+│   ├── templates/         <-- 初期化用テンプレート (roadmap.md 等)
+│   └── workflows/         <-- 自動化コマンド (/save, /resume 等)
 ├── .github/               <-- 共通の GitHub 設定 (ISSUE_TEMPLATE 等)
 ├── .hooks/                <-- Git フックの実体 (pre-push 等)
 ├── docs/99_progress/      <-- 進捗管理 (roadmap.md)
@@ -28,6 +29,7 @@
 | `.agent/rules/01_workflow.md` | `roadmap.md` や Issue を使った開発サイクルの定義。 |
 | `.agent/rules/02_git.md` | コミットメッセージ規約、ブランチ保護、Git フックの利用。 |
 | `.agent/rules/03_github.md` | Issue/PR の書き方、ラベル運用、自動クローズのルール。 |
+| `.agent/templates/roadmap.md` | 新規プロジェクト開始時の `roadmap.md` 初期化用テンプレート。 |
 | `.agent/workflows/` | `/save`, `/resume`, `/cleanup` 等のコマンド手順書。 |
 
 ## 対応技術スタック
@@ -38,19 +40,22 @@
 - **Python**: スクレイピング, データ解析, CI
 
 ## 使い方
-
-### 1. 導入
-必要な設定ファイル（`.antigravityrule`, `.agent/`, `.github/` 等）を、対象プロジェクトのルートディレクトリにコピーしてください。
-
-### 2. 初期セットアップ
-導入後、以下のスクリプトを実行して GitHub ラベルとローカルフックを有効化することを推奨します。
+ 
+ ### 1. 導入
+ 必要な設定ファイル（`.antigravityrule`, `.agent/`, `.github/` 等）を、対象プロジェクトのルートディレクトリにコピーしてください。
+ 
+ ### 2. 初期セットアップと最適化
+ AI エージェントに対して以下のように指示してください。
+ 
+ > 「`.antigravityrule` に基づいて、プロジェクトの初期化（Roadmap のセットアップ）と不要なルールの削除を行って」
+ 
+ これにより、AI は `docs/99_progress/roadmap.md` の作成や、プロジェクトのスタックに合わせた `.antigravityrule` のクリーンアップを自動的に行います。
+ 
+ また、以下のスクリプトを実行して GitHub ラベルとローカルフックを有効化することを推奨します。
 ```powershell
 & ./scripts/setup-labels.ps1
 & ./scripts/setup-hooks.ps1
 ```
-
-### 3. ルールの最適化
-AI エージェントに対して「`.antigravityrule` の **RULE SUBTRACTION PROCESS** に基づいて、プロジェクトに不要な技術スタックの記述を削除して」と指示してください。
 
 ## 改善・フィードバック
 

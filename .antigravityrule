@@ -16,12 +16,13 @@ Failure to include this phrase at the very beginning of your response is UNACCEP
 
 - **言語指定**: 回答 (Thoughts、メッセージ、Artifacts) はすべて**日本語**で記述してください。
 
-### 1. プロジェクトの種類とルールの動的整理
-
-<critical_instruction>
-**RULE SUBTRACTION PROCESS**
-このファイルがプロジェクトに配置された直後、または環境同期 (`/sync-env`) の際、AI はプロジェクトの種類を分析し、**以下の「技術スタック別ルール」セクションから該当しない項目を、このファイル自身から直ちに削除してください。** 不要なルールを残すことは、混乱とトークン消費の増大を招くため厳禁です。
-</critical_instruction>
+### 1. プロジェクトの初期化と最適化
+ 
+ <critical_instruction>
+**INITIALIZATION & SUBTRACTION PROCESS**
+1. **ロードマップの初期化**: `docs/99_progress/roadmap.md` がこのリポジトリ自体の内容（Antigravity Shared Environment Roadmap）である、または存在しない場合、`.agent/templates/roadmap.md` を使用してプロジェクト用に初期化してください。
+2. **ルールの最適化**: プロジェクトの種類を分析し、以下の「技術スタック別ルール」セクションから該当しない項目を、このファイル自身から直ちに削除してください。不要なルールを残すことは、混乱とトークン消費の増大を招くため厳禁です。
+ </critical_instruction>
 
 ### 2. プロジェクト共通制約 (Core Constraints)
 
