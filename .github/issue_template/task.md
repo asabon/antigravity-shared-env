@@ -1,7 +1,7 @@
 ---
 name: タスク
 about: 新しい機能追加や改善タスクを作成します
-title: '[TASK] '
+title: ''
 labels: task
 assignees: ''
 ---
