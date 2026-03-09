@@ -1,77 +1,91 @@
 # Antigravity Shared Environment
 
-このリポジトリは、Antigravity（AI エージェント）を活用した開発プロジェクト間で共通して使用する設定、ワークフロー、ルールをまとめたものです。
+このリポジトリは、Antigravity（AI エージェント）を活用した開発プロジェクト間で共通して使用する設定、ワークフロー、ルールを管理するための基盤です。
 
-安全のため、各設定ファイルは `.template` 拡張子や `_template` ディレクトリ名で管理されており、AI が誤ってルールとして直接認識しないよう配慮されています。
+## 概要
 
-## 概要（推奨される構成）
+本プロジェクトは、開発の標準化を目的とした「すぐに使える」ルールセットを提供します。以前の複雑なテンプレート形式を廃止し、リポジトリをクローンまたはフォークしてそのまま利用、あるいは必要なファイル（`.agent/`, `.antigravityrule` 等）をプロジェクトルートへコピーするだけで導入可能なシンプルな構成に移行しました。
 
-このリポジトリは、ターゲットとなるプロジェクトのルート直下に **`env/`** という名前のディレクトリを配置（`git submodule` 推奨）して使用します。
-AI エージェントが `/sync-env` コマンドを実行することで、`env/` 内のテンプレートが必要な形にリネームされ、プロジェクト直下へ展開されます。
+### ディレクトリ構造
 
 ```text
 プロジェクトルート/
-├── env/                   <-- このリポジトリ (ReadOnly 推奨)
-│   ├── antigravityrule.template
-│   ├── agent_template/
-│   └── ...
-├── .antigravityrule       <-- [生成] プロジェクトの目次
-├── .agent/                <-- [生成] AI 向けの命令・ワークフロー
-│   ├── rules/
-│   └── workflows/
-├── .github/               <-- [生成] CI/CD 設定
-│   └── workflows/
-├── .hooks/                <-- [生成] Git Hooks
-└── scripts/               <-- [生成] 便利スクリプト
+├── .antigravityrule       <-- AI エージェントの動作指針・ルール目次
+├── .agent/                <-- AI 向けの規約・ワークフロー定義
+│   ├── rules/             <-- 開発規約 (Workflow, Git, GitHub, スタック別)
+│   ├── templates/         <-- 初期化用テンプレート (roadmap.md 等)
+│   └── workflows/         <-- 自動化コマンド (/save, /resume 等)
+├── .github/               <-- 共通の GitHub 設定 (ISSUE_TEMPLATE 等)
+├── .hooks/                <-- Git フックの実体 (pre-push 等)
+├── docs/99_progress/      <-- 進捗管理 (roadmap.md)
+└── scripts/               <-- 環境構築用スクリプト (ラベル設定、フック有効化)
 ```
 
-## 同期の実態（ファイルマッピング）
+## 主要なルールとワークフロー
 
-`/sync-env` を実行すると、AI は `env/` 内のテンプレートを以下のようにプロジェクトルートへ展開し、必要に応じてリネーム（ドットの付与など）を行います。
-
-| 同期元 (env/ 内) | 同期先 (プロジェクトルート) | 役割 |
-| :--- | :--- | :--- |
-| `antigravityrule.template` | `.antigravityrule` | AI エージェントのメイン動作指針・目次 |
-| `agent_template/rules/` | `.agent/rules/` | 開発規約、フェーズ別ルール定義 |
-| `agent_template/workflows/` | `.agent/workflows/` | `/save`, `/resume`, `/sync-env` などのコマンド定義 |
-| `github_template/workflows/` | `.github/workflows/` | GitHub Actions の自動化パイプライン |
-| `hooks_template/` | `.hooks/` | `pre-commit` などのローカル Git フック |
-| `scripts_template/` | `scripts/` | ラベル設定やフック有効化の自動実行スクリプト |
+| パス | 役割 |
+| :--- | :--- |
+| `.antigravityrule` | エージェントへの最優先指示。日本語対応や目次機能を提供。 |
+| `.agent/rules/01_workflow.md` | `roadmap.md` や Issue を使った開発サイクルの定義。 |
+| `.agent/rules/02_git.md` | コミットメッセージ規約、ブランチ保護、Git フックの利用。 |
+| `.agent/rules/03_github.md` | Issue/PR の書き方、ラベル運用、自動クローズのルール。 |
+| `.agent/templates/roadmap.md` | 新規プロジェクト開始時の `roadmap.md` 初期化用テンプレート。 |
+| `.agent/workflows/` | `/save`, `/resume`, `/cleanup` 等のコマンド手順書。 |
 
 ## 対応技術スタック
+ 
+ 以下のスタックに対する標準的な規約（Lint、Test、Build 等の自動実行許可）が含まれています。
+ - **Android**: Kotlin, Compose, Gradle
+ - **TypeScript**: GitHub Actions (Custom Action), Node.js
+ - **Python**: スクレイピング, データ解析, CI
+ 
+ ## 特徴・提供される機能 (Features)
+ 
+ 本環境を導入することで、AI エージェント（Antigravity）との協調開発において以下の機能が利用可能になります。
+ 
+ ### 1. 強力なコンテキスト管理 (`/save` & `/resume`)
+ - **中断の自動化**: `/save` コマンドにより、作業途中のタスク状態 (`task.md`) を要約し、GitHub Issue にチェックポイントとして保存します。
+ - **瞬時の再開**: `/resume` コマンドだけで、作業ブランチへの切り替え、以前のコンテキスト情報の復元、次に行うべきステップの特定を AI が自動的に行います。
+ 
+ ### 2. 透過的な進捗管理 (`roadmap.md`)
+ - **唯一の真実 (Source of Truth)**: `docs/99_progress/roadmap.md` を中心に、プロジェクトの全体像と履歴を管理します。
+ - **自動更新**: すべてのプルリクエストには、このロードマップの更新が含まれることをルール化しており、常に最新の進捗が可視化されます。
+ 
+ ### 3. 開発プロセスの標準化と自動化
+ - **GitHub 連携**: ラベル、Issue/PR テンプレート、自動ブランチ作成 (`gh issue develop`) を活用した標準ワークフロー。
+ - **ガードレール**: コミットメッセージ規約やブランチ保護、PR 作成時のチェックリスト強制による品質維持。
+ - **後処理の自動化**: `/cleanup` コマンドにより、マージ済みのブランチ削除や `working` ラベルの整理を一括で行います。
+ 
+ ## 開発エクスペリエンス (Developer Experience)
+ 
+ ### 「迷わない」開発
+ AI は `.antigravityrule` を起点として、次に何をすべきか、以前どこまでやったかを常に把握しています。開発者は、ロードマップ上の大きな目標を定義するだけで、AI がそれを GitHub Issue 単位の具体的なタスクに分解し、実装・検証を進めます。
+ 
+ ### クリーンなプロジェクト環境
+ 不要な技術スタックのルールは AI が自律的に削除し、テンプレートファイルも独立したディレクトリ (`.agent/templates/`) で管理されるため、プロジェクト本来のソースコードを邪魔しません。
+ 
+ ### 継続的な還元
+ プロジェクト固有のカスタマイズで得られた知見（優れたワークフローやスクリプト）は、共通環境である本リポジトリへ還元されるエコシステムを想定しています。
 
-本環境は、以下のスタックを標準サポートしています。
-
-- **Android**: Kotlin, Compose, Gradle, Android CI/CD
-- **TypeScript**: GitHub Actions (Custom Action), JavaScript/Node.js
-- **Python**: スクレイピング, データ解析, CI 自動実行
-
-## 使い方（導入手順）
-
-### 1. Submodule の追加
-プロジェクトのルートで以下を実行します。
-```bash
-git submodule add https://github.com/asabon/antigravity-shared-env.git env
+## 使い方
+ 
+ ### 1. 導入
+ 必要な設定ファイル（`.antigravityrule`, `.agent/`, `.github/` 等）を、対象プロジェクトのルートディレクトリにコピーしてください。
+ 
+ ### 2. 初期セットアップと最適化
+ AI エージェントに対して以下のように指示してください。
+ 
+ > 「`.antigravityrule` に基づいて、プロジェクトの初期化（Roadmap のセットアップ）と不要なルールの削除を行って」
+ 
+ これにより、AI は `docs/99_progress/roadmap.md` の作成や、プロジェクトのスタックに合わせた `.antigravityrule` のクリーンアップを自動的に行います。
+ 
+ また、以下のスクリプトを実行して GitHub ラベルとローカルフックを有効化することを推奨します。
+```powershell
+& ./scripts/setup-labels.ps1
+& ./scripts/setup-hooks.ps1
 ```
 
-### 2. 初期同期の指示
-初めて導入する際は、AI に対して以下のように「同期ワークフローの直接実行」を指示してください。
+## 改善・フィードバック
 
-> 「`env/agent_template/workflows/sync-env.md` を実行して、環境の同期を開始して」
-
-### 3. AI による「引き算」と最適化
-指示を受けた AI は、プロジェクトの構成を自動で分析し、以下の最適化を行います。
-
-- **不要ルールの削除**: プロジェクトが Python を使っていない場合、`.antigravityrule` から Python 関連のインデックスを削除し、`.agent/rules/` から Python 用のルールファイルを削除します。
-- **CI/CD の選択**: プロジェクトの種類にマッチする GitHub Actions テンプレートのみを `.github/workflows/` に配置します。
-- **プロジェクト固有情報の維持**: すでにプロジェクト側に独自のルールや設定がある場合、それらを壊さないように配慮しながら共通設定を統合します。
-
-同期完了後は、プロジェクトルートに配置された `/sync-env` コマンドで、いつでも最新の共通設定にアップデートできるようになります。
-
-## 改善・フィードバックの提案
-
-プロジェクトでの利用中に共通ルールの改善点を見つけた場合は、以下の手順でフィードバックしてください。
-
-1. **Issue の作成**: 本リポジトリ (`antigravity-shared-env`) に Issue を作成してください。
-2. **プルリクエスト (PR)**: 改善案のブランチを作成し、PR を出してください。**`main` ブランチへの直接プッシュは禁止されています。**
-3. **AI による提案**: AI が「これは共通化すべき」と判断した場合、本リポジトリへの Issue 作成を提案することがあります。
+プロジェクトでの利用中に共通ルールの改善点を見つけた場合は、本リポジトリへの Issue 作成やプルリクエスト (PR) を通じて還元してください。
+**`main` ブランチへの直接プッシュは禁止されています。**

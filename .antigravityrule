@@ -16,12 +16,13 @@ Failure to include this phrase at the very beginning of your response is UNACCEP
 
 - **言語指定**: 回答 (Thoughts、メッセージ、Artifacts) はすべて**日本語**で記述してください。
 
-### 1. プロジェクトの種類とルールの動的整理
-
-<critical_instruction>
-**RULE SUBTRACTION PROCESS**
-このファイルがプロジェクトに配置された直後、または環境同期 (`/sync-env`) の際、AI はプロジェクトの種類を分析し、**以下の「技術スタック別ルール」セクションから該当しない項目を、このファイル自身から直ちに削除してください。** 不要なルールを残すことは、混乱とトークン消費の増大を招くため厳禁です。
-</critical_instruction>
+### 1. プロジェクトの初期化と最適化
+ 
+ <critical_instruction>
+**INITIALIZATION & SUBTRACTION PROCESS**
+1. **ロードマップの初期化**: `docs/99_progress/roadmap.md` がこのリポジトリ自体の内容（Antigravity Shared Environment Roadmap）である、または存在しない場合、`.agent/templates/roadmap.md` を使用してプロジェクト用に初期化してください。
+2. **ルールの最適化**: プロジェクトの種類を分析し、以下の「技術スタック別ルール」セクションから該当しない項目を、このファイル自身から直ちに削除してください。不要なルールを残すことは、混乱とトークン消費の増大を招くため厳禁です。
+ </critical_instruction>
 
 ### 2. プロジェクト共通制約 (Core Constraints)
 
@@ -36,31 +37,24 @@ Failure to include this phrase at the very beginning of your response is UNACCEP
 具体的な手順や制約は、以下の専用ファイルに分割されています。
 **該当するフェーズ・操作が発生する前に、必ず対象のファイルを `view_file` で読み込んでください。**
 
-#### [共通] 基本ルール
-- **コア・ワークフロー**: `.agent/rules/01_workflow.md`
-- **Git 操作規約**: `.agent/rules/02_git.md`
 - **GitHub 運用規約**: `.agent/rules/03_github.md`
 - **自動実行許可設定**: `.agent/rules/auto-commands.yaml`
-
-#### [Android] Android 開発規約
-- **パス**: `.agent/rules/10_android.md`
-- **内容**: Kotlin / Compose 規約、必須検証手順 (assembleDebug, testDebugUnitTest 等)
-- **削除条件**: プロジェクトが Android アプリケーションでない場合、この項目を削除してください。
 
 #### [TypeScript] TypeScript 開発規約
 - **パス**: `.agent/rules/11_typescript.md`
 - **内容**: TypeScript コード品質、Lint/Format、型定義、テスト
-- **削除条件**: プロジェクトが TypeScript/JavaScript をメインとしていない場合、この項目を削除してください。
 
 #### [GitHub Actions] GitHub Actions 開発規約
 - **パス**: `.agent/rules/13_github_actions.md`
 - **内容**: ワークフロー定義、Custom Action (JavaScript/TypeScript 基盤) 開発、セキュリティ
-- **削除条件**: プロジェクトが GitHub Actions ワークフローやカスタムアクションをメインとしていない場合、この項目を削除してください。
 
-#### [Python] Python / Scraping 開発規約
+#### [Python] Python 開発規約
 - **パス**: `.agent/rules/12_python.md`
-- **内容**: Python 規約、スクレイピング、データ処理、CI での自動実行
-- **削除条件**: プロジェクトが Python をメインとしていない場合、この項目を削除してください。
+- **内容**: Python コード品質、Poetry/Pipenv、テスト
+
+#### [Android] Android 開発規約
+- **パス**: `.agent/rules/10_android.md`
+- **内容**: Kotlin/Java コード品質、Gradle、テスト
 
 ## Antigravity システム向け設定
 
