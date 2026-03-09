@@ -1,0 +1,70 @@
+# エージェント設定 (.antigravityrule)
+
+このプロジェクトにおける動作指針とルールの目次(インデックス)です。
+
+## Antigravity 上で動作する AI モデル向け指示
+
+<critical_instruction>
+**CRITICAL COMMUNICATION RULE**
+You are strictly required to acknowledge the reading of this file.
+Whenever you receive a prompt from the user, your VERY FIRST natural language response MUST start with the exact phrase below:
+
+「.antigravityruleを読み込みました。」
+
+Failure to include this phrase at the very beginning of your response is UNACCEPTABLE.
+</critical_instruction>
+
+- **言語指定**: 回答 (Thoughts、メッセージ、Artifacts) はすべて**日本語**で記述してください。
+
+### 1. プロジェクトの種類とルールの動的整理
+
+<critical_instruction>
+**RULE SUBTRACTION PROCESS**
+このファイルがプロジェクトに配置された直後、または環境同期 (`/sync-env`) の際、AI はプロジェクトの種類を分析し、**以下の「技術スタック別ルール」セクションから該当しない項目を、このファイル自身から直ちに削除してください。** 不要なルールを残すことは、混乱とトークン消費の増大を招くため厳禁です。
+</critical_instruction>
+
+### 2. プロジェクト共通制約 (Core Constraints)
+
+- **`main` ブランチの完全保護**:
+  - `main` ブランチへの直接的な `commit` および `push` は厳禁です。
+  - すべての変更は必ず作業用ブランチを作成し、Pull Request (PR) を経由してください。
+- **Git 操作・進捗管理**:
+  - 詳細は `.agent/rules/01_workflow.md`, `02_git.md`, `03_github.md` を参照してください。
+
+### 3. ルール・インデックス (Rule Indexes)
+
+具体的な手順や制約は、以下の専用ファイルに分割されています。
+**該当するフェーズ・操作が発生する前に、必ず対象のファイルを `view_file` で読み込んでください。**
+
+- **GitHub 運用規約**: `.agent/rules/03_github.md`
+- **自動実行許可設定**: `.agent/rules/auto-commands.yaml`
+
+#### [TypeScript] TypeScript 開発規約
+- **パス**: `.agent/rules/11_typescript.md`
+- **内容**: TypeScript コード品質、Lint/Format、型定義、テスト
+
+#### [GitHub Actions] GitHub Actions 開発規約
+- **パス**: `.agent/rules/13_github_actions.md`
+- **内容**: ワークフロー定義、Custom Action (JavaScript/TypeScript 基盤) 開発、セキュリティ
+
+#### [Python] Python 開発規約
+- **パス**: `.agent/rules/12_python.md`
+- **内容**: Python コード品質、Poetry/Pipenv、テスト
+
+#### [Android] Android 開発規約
+- **パス**: `.agent/rules/10_android.md`
+- **内容**: Kotlin/Java コード品質、Gradle、テスト
+
+## Antigravity システム向け設定
+
+```yaml
+rules:
+  - .agent/rules/01_workflow.md
+  - .agent/rules/02_git.md
+  - .agent/rules/03_github.md
+  - .agent/rules/10_android.md
+  - .agent/rules/11_typescript.md
+  - .agent/rules/12_python.md
+  - .agent/rules/13_github_actions.md
+  - .agent/rules/auto-commands.yaml
+```

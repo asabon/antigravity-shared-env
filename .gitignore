@@ -1,6 +1,2 @@
-# Antigravity Local Rules (Dogfooding)
-/.antigravityrule
-/.agent/
-
 # Temporary files
 /temp/
