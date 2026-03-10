@@ -18,7 +18,7 @@ general:
     - grep
 
 git:
-  description: "Git 読み取り操作および非破壊的な状態管理"
+  description: "Git 読み取り操作および 02_git.md の規定に基づく自律的操作"
   commands:
     - git status
     - git branch
@@ -29,8 +29,8 @@ git:
     - git fetch
     - git remote
     - git submodule
-    - git add # 詳細は 02_git.md 参照
-    - git checkout # 詳細は 02_git.md 参照
+    - git add
+    - git checkout
 
 github_cli:
   description: "GitHub CLI を用いた進捗確認・情報取得"
