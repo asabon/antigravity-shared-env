@@ -21,7 +21,10 @@ git:
   description: "Git 読み取り操作および 02_git.md の規定に基づく自律的操作"
   commands:
     - git status
+    - git status --porcelain
     - git branch
+    - git branch -a
+    - git branch --show-current
     - git log
     - git diff
     - git show
@@ -33,7 +36,7 @@ git:
     - git checkout
 
 github_cli:
-  description: "GitHub CLI を用いた進捗確認・情報取得"
+  description: "GitHub CLI を用いた進捗確認・情報取得・一時ファイルを利用した更新（SafeToAutoRun: true）"
   commands:
     - gh auth status
     - gh issue list
@@ -41,6 +44,14 @@ github_cli:
     - gh pr list
     - gh pr view
     - gh repo view
+    - gh issue create --body-file temp/*
+    - gh issue create --body-file temp\*
+    - gh issue edit --body-file temp/*
+    - gh issue edit --body-file temp\*
+    - gh pr create --body-file temp/*
+    - gh pr create --body-file temp\*
+    - gh pr edit --body-file temp/*
+    - gh pr edit --body-file temp\*
 
 development_stacks:
   android:
