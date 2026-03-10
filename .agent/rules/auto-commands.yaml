@@ -29,7 +29,7 @@ git:
     - git fetch
     - git remote
     - git submodule
-    # ステージングのみ
+    # インデックスへの追加（ステージング）のみ。コミット・プッシュは要承認。
     - git add
     # 既存ブランチ、作業ブランチ作成
     - git checkout 
