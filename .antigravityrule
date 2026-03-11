@@ -19,14 +19,7 @@ Failure to include this phrase at the very beginning of your response is UNACCEP
 
 - **言語指定**: 回答 (Thoughts、メッセージ、Artifacts) はすべて**日本語**で記述してください。
 
-### 1. プロジェクトの初期化
- 
- <critical_instruction>
-**INITIALIZATION PROCESS**
-1. **ロードマップの初期化**: `docs/status/roadmap.md` がこのリポジトリ自体の内容（antigravity-workflow Roadmap）である、または存在しない場合、`.agent/templates/roadmap.md` を使用してプロジェクト用に初期化してください。
- </critical_instruction>
-
-### 2. プロジェクト共通制約 (Core Constraints)
+### 1. プロジェクト共通制約 (Core Constraints)
 
 - **`main` ブランチの完全保護**:
   - `main` ブランチへの直接的な `commit` および `push` は厳禁です。
@@ -34,7 +27,7 @@ Failure to include this phrase at the very beginning of your response is UNACCEP
 - **Git 操作・進捗管理**:
   - 詳細は `.agent/rules/01_workflow.md`, `02_git.md`, `03_github.md` を参照してください。
 
-### 3. ルール・インデックス (Rule Indexes)
+### 2. ルール・インデックス (Rule Indexes)
 
 具体的な手順や制約は、以下の専用ファイルに分割されています。
 **該当する操作が発生する前に、必ず対象のファイルを `view_file` で読み込んでください。**
