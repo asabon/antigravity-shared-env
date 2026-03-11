@@ -12,6 +12,9 @@ Whenever you receive a prompt from the user, your VERY FIRST natural language re
 「.antigravityruleを読み込みました。」
 
 Failure to include this phrase at the very beginning of your response is UNACCEPTABLE.
+
+**CONTEXT PERSISTENCE RULE**
+会話が長期化（目安として 10 ターン以上）した場合、または作業フェーズが大きく変わる（計画から実装へ移動するなど）際は、現在のルールセットに相違がないか確認するため、自律的に `.antigravityrule` を `view_file` で読み直してください。
 </critical_instruction>
 
 - **言語指定**: 回答 (Thoughts、メッセージ、Artifacts) はすべて**日本語**で記述してください。
@@ -38,7 +41,7 @@ Failure to include this phrase at the very beginning of your response is UNACCEP
 **該当するフェーズ・操作が発生する前に、必ず対象のファイルを `view_file` で読み込んでください。**
 
 - **GitHub 運用規約**: `.agent/rules/03_github.md`
-- **自動実行許可設定**: `.agent/rules/auto-commands.yaml`
+- **自動実行許可設定**: `.vscode/settings.json`
 
 #### [TypeScript] TypeScript 開発規約
 - **パス**: `.agent/rules/11_typescript.md`
@@ -67,5 +70,5 @@ rules:
   - .agent/rules/11_typescript.md
   - .agent/rules/12_python.md
   - .agent/rules/13_github_actions.md
-  - .agent/rules/auto-commands.yaml
+  - .vscode/settings.json
 ```
