@@ -23,7 +23,7 @@ Failure to include this phrase at the very beginning of your response is UNACCEP
  
  <critical_instruction>
 **INITIALIZATION PROCESS**
-1. **ロードマップの初期化**: `docs/99_progress/roadmap.md` がこのリポジトリ自体の内容（Antigravity Workflow Roadmap）である、または存在しない場合、`.agent/templates/roadmap.md` を使用してプロジェクト用に初期化してください。
+1. **ロードマップの初期化**: `docs/99_progress/roadmap.md` がこのリポジトリ自体の内容（antigravity-workflow Roadmap）である、または存在しない場合、`.agent/templates/roadmap.md` を使用してプロジェクト用に初期化してください。
  </critical_instruction>
 
 ### 2. プロジェクト共通制約 (Core Constraints)

@@ -1,4 +1,4 @@
-# Antigravity Workflow
+# antigravity-workflow
 
 このリポジトリは、AI エージェント Antigravity が GitHub 上で自律的に開発タスクを実行するための標準ワークフローと設定を定義する基盤リポジトリです。
 
@@ -11,7 +11,7 @@
 
 ```mermaid
 graph TD
-    Core["Antigravity Workflow (Core) <br/>[This Repo]"] 
+    Core["antigravity-workflow (Core) <br/>[This Repo]"] 
     Core -->|継承・同期| Template["AndroidAppTemplate <br/>(Tech Stack Template)"]
     Core -->|継承・同期| Template2["NextJsAppTemplate <br/>(Tech Stack Template)"]
     
