@@ -19,12 +19,11 @@ Failure to include this phrase at the very beginning of your response is UNACCEP
 
 - **言語指定**: 回答 (Thoughts、メッセージ、Artifacts) はすべて**日本語**で記述してください。
 
-### 1. プロジェクトの初期化と最適化
+### 1. プロジェクトの初期化
  
  <critical_instruction>
-**INITIALIZATION & SUBTRACTION PROCESS**
-1. **ロードマップの初期化**: `docs/99_progress/roadmap.md` がこのリポジトリ自体の内容（Antigravity Shared Environment Roadmap）である、または存在しない場合、`.agent/templates/roadmap.md` を使用してプロジェクト用に初期化してください。
-2. **ルールの最適化**: プロジェクトの種類を分析し、以下の「技術スタック別ルール」セクションから該当しない項目を、このファイル自身から直ちに削除してください。不要なルールを残すことは、混乱とトークン消費の増大を招くため厳禁です。
+**INITIALIZATION PROCESS**
+1. **ロードマップの初期化**: `docs/99_progress/roadmap.md` がこのリポジトリ自体の内容（antigravity-workflow Roadmap）である、または存在しない場合、`.agent/templates/roadmap.md` を使用してプロジェクト用に初期化してください。
  </critical_instruction>
 
 ### 2. プロジェクト共通制約 (Core Constraints)
@@ -38,26 +37,12 @@ Failure to include this phrase at the very beginning of your response is UNACCEP
 ### 3. ルール・インデックス (Rule Indexes)
 
 具体的な手順や制約は、以下の専用ファイルに分割されています。
-**該当するフェーズ・操作が発生する前に、必ず対象のファイルを `view_file` で読み込んでください。**
+**該当する操作が発生する前に、必ず対象のファイルを `view_file` で読み込んでください。**
 
+- **ワークフロー規約**: `.agent/rules/01_workflow.md`
+- **Git 規約**: `.agent/rules/02_git.md`
 - **GitHub 運用規約**: `.agent/rules/03_github.md`
 - **自動実行許可設定**: `.vscode/settings.json`
-
-#### [TypeScript] TypeScript 開発規約
-- **パス**: `.agent/rules/11_typescript.md`
-- **内容**: TypeScript コード品質、Lint/Format、型定義、テスト
-
-#### [GitHub Actions] GitHub Actions 開発規約
-- **パス**: `.agent/rules/13_github_actions.md`
-- **内容**: ワークフロー定義、Custom Action (JavaScript/TypeScript 基盤) 開発、セキュリティ
-
-#### [Python] Python 開発規約
-- **パス**: `.agent/rules/12_python.md`
-- **内容**: Python コード品質、Poetry/Pipenv、テスト
-
-#### [Android] Android 開発規約
-- **パス**: `.agent/rules/10_android.md`
-- **内容**: Kotlin/Java コード品質、Gradle、テスト
 
 ## Antigravity システム向け設定
 
@@ -66,9 +51,5 @@ rules:
   - .agent/rules/01_workflow.md
   - .agent/rules/02_git.md
   - .agent/rules/03_github.md
-  - .agent/rules/10_android.md
-  - .agent/rules/11_typescript.md
-  - .agent/rules/12_python.md
-  - .agent/rules/13_github_actions.md
   - .vscode/settings.json
 ```

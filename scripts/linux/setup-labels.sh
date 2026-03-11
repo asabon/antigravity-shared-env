@@ -16,7 +16,6 @@ LABELS=(
   "major:0e8a16:メジャーバージョンアップ（破壊的変更あり）"
   "minor:fbca04:マイナーバージョンアップ（機能追加）"
   "breaking:d93f0b:破壊的変更"
-  "working:fef2c0:現在作業中"
 )
 
 echo "Checking and creating GitHub Labels for Release Drafter..."

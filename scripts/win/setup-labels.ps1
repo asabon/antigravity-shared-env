@@ -18,8 +18,6 @@ $labels = @(
     @{ name = "minor"; color = "fbca04"; description = "マイナーバージョンアップ（機能追加）" }
     @{ name = "breaking"; color = "d93f0b"; description = "破壊的変更" }
 
-    # 状態ラベル (Status Labels)
-    @{ name = "working"; color = "fef2c0"; description = "現在作業中" }
 )
 
 Write-Host "Checking and creating GitHub Labels for Release Drafter..." -ForegroundColor Cyan

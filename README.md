@@ -1,104 +1,110 @@
-# Antigravity Shared Environment
+# antigravity-workflow
 
-このリポジトリは、Antigravity（AI エージェント）を活用した開発プロジェクト間で共通して使用する設定、ワークフロー、ルールを管理するための基盤です。
+このリポジトリは、AI エージェント Antigravity が GitHub 上で自律的に開発タスクを実行するための標準ワークフローと設定を定義する基盤リポジトリです。
 
-## 提供する機能 (What it provides)
+---
 
-本プロジェクトは、開発の標準化を目的とした「すぐに使える」AI エージェント向けのルールセットとワークフローを提供します。
-対象プロジェクトへリポジトリの内容を導入するだけで、すぐに利用を開始できます。
+## プロジェクトの立ち位置 (Ecosystem)
 
-## 提供する機能とメリット (Features & Benefits)
+本リポジトリは、すべての開発プロジェクトの最下層に位置する「共通の作法」を定義します。
+技術スタック固有のルールは持たず、Issue 管理、ブランチ運用、進捗の保存・再開といった **「AI と人の協働プロセス」** に特化しています。
 
-本プロジェクトは、開発の標準化を目的とした「すぐに使える」AI エージェント向けのルールセットとワークフローを提供します。具体的には、以下の課題を解決する仕組みが揃っています：
+```mermaid
+graph TD
+    Core["antigravity-workflow (Core) <br/>[This Repo]"] 
+    Core -->|継承・同期| Template["AndroidAppTemplate <br/>(Tech Stack Template)"]
+    Core -->|継承・同期| Template2["NextJsAppTemplate <br/>(Tech Stack Template)"]
+    
+    Template -->|複製| App1["Individual App Alpha"]
+    Template -->|複製| App2["Individual App Beta"]
+    
+    subgraph "Layer 1: Workflow Core"
+        Core
+    end
+    
+    subgraph "Layer 2: Tech Templates"
+        Template
+        Template2
+    end
+    
+    subgraph "Layer 3: Project Apps"
+        App1
+        App2
+    end
 
-### 1. タスクとコンテキストの管理
-* **強力なコンテキスト管理**: スラッシュコマンド (`/save`, `/resume`) により、作業の中断状態 (`task.md`) を要約して Issue に保存し、瞬時に別ブランチでの作業再開やコンテキストの復元が可能です。
-* **唯一の真実 (Source of Truth)**: `docs/99_progress/roadmap.md` を中心に、プロジェクトの全体像と履歴を透過的に管理します。
-* **「迷わない」開発**: AI が `.antigravityrule` を起点に Roadmap をタスク分解・実装・検証まで自動で推し進めるため、開発者は大きな目標の定義に集中できます。
+    style Core fill:#f9f,stroke:#333,stroke-width:4px
+```
 
-### 2. 開発プロセスの標準化と自動化
-* **GitHub フローの自動化**: Issue を使ったタスク管理、自動ブランチ作成 (`gh issue develop`)、PR ごとの Roadmap 更新強制など、標準ワークフローを確立します。
-* **リリース管理**: GitHub の PR ラベルと Release Drafter を使った自動 Release note 生成に対応しています。
-* **ガードレールと後処理**: コミット規約の強制、ブランチ保護、さらには `/cleanup` コマンドによるマージ済みブランチ・ラベルの一括整理が可能です。
+---
 
-### 3. クリーンですぐに使える環境
-* **技術スタック別ルール**: Android, TypeScript, Python に対する標準的な規約（Lint、Test、Build 等の自動実行許可）があらかじめ組み込まれており、すぐに開発を始められます。
-* **プロジェクトの汚染防止**: テンプレートファイルは `.agent/templates/` に独立して管理され、不要な技術スタックのルールは AI が自律的に削除するため、対象プロジェクトのソースコードを邪魔しません。
+## 提供する主要機能 (Key Features)
 
-## 使い方 (How to use)
+### 1. タスクとコンテキストの自律管理
+- **進捗の保存・復元 (`/save`, `/resume`)**: AI が現在の中断状態を Issue に「栞（しおり）」として残し、別の環境やタイミングでも即座に文脈を復元して再開できます。
+- **環境クリーンアップ (`/cleanup`)**: 作業完了後のマージ済みブランチやラベルを一括で整理します。
 
-### 1. 導入方針と前提
+### 2. プロジェクトの標準化
+- **初期セットアップ (`/setup`)**: テンプレートから作成した新規プロジェクトを、数秒で開発可能な状態に構成します。
+- **ルール同期 (`/sync-rules`)**: 本リポジトリ（Core）で改善された最新のワークフローを、既存の各プロジェクトへ安全に取り込めます。
 
-本リポジトリが提供するルール、ワークフローコマンド（`/save` 等）、および Git・GitHub 連携機能は、互いに密接に絡み合ってひとつの環境を構成しています。そのため、**基本的にはすべてのファイル・ディレクトリをまとめて導入することを推奨**します。
+### 3. ガードレール
+- **ブランチ保護**: `main` ブランチへの直接プッシュをフックで制限し、常に Pull Request ベースの安全な開発を強制します。
 
-**A. 新規プロジェクト（推奨）**
-本リポジトリは GitHub のテンプレートリポジトリとして設定されています（または設定される想定です）。
-GitHub 上の **「Use this template」** ボタンをクリックし、新しいリポジトリを作成するのが最も簡単で確実な手順です。
-これにより、コミット履歴を引き継ぐことなくクリーンな状態で、すべてのルールが含まれた新規プロジェクト立ち上げが可能です。
+---
 
-**B. 既存プロジェクトへの導入**
-すでに進行中のプロジェクトにこの環境を後から導入・または同期する場合は、以下の2つの方法があります。
+## 使い方 (Usage)
 
-**おすすめの方法：`/sync-rules` の活用**
-1. 既存プロジェクトの `.agent/workflows/` ディレクトリ内に、本リポジトリの `sync-rules.md` だけをダウンロードして配置します。
-2. AI エージェントに対して `/sync-rules` コマンドを実行させます。
-3. AI がテンプレートリポジトリ（ここ）から最新のルールやワークフロー、設定ファイルを比較・提案してくれるので、必要なものだけを安全に取り込めます。
+### 1. 導入 (Installation)
 
-**手動でコピーする場合**
-以下の主要なファイル・ディレクトリを**セットで**既存のプロジェクトルートへコピーしてください。
-- `.antigravityrule` (必須)
-- `.agent/` (必須)
-- `.github/`
-- `.hooks/`
-- `.vscode/`
-- `scripts/`
-- `docs/`
+#### A. テンプレートプロジェクト（Layer 2）の開発
+本リポジトリをテンプレートとして使用、または内容をコピーして、特定の技術スタック（例：Android, Vite）向けの標準設定を追加したテンプレートリポジトリを構築してください。
 
-### 2. 初期セットアップと最適化
-新規プロジェクトとしてテンプレートから作成した直後は、AI エージェントに対して以下のコマンドを実行してください。
+#### B. 既存プロジェクトへの同期
+AI エージェントに対して以下のコマンドを実行し、最新のワークフローを取り込みます。
+> `/sync-rules`
 
+### 2. 初期セットアップ
+プロジェクト開始直後（またはテンプレートから作成直後）に AI に以下のコマンドを指示してください。
 > `/setup`
 
-これにより、AI は以下の初期化処理を自動的に行います。
-1. `docs/99_progress/roadmap.md` のプロジェクト用セットアップ
-2. プロジェクトのスタックに合わせた `.antigravityrule` およびルールファイルのクリーンアップ（不要なルールの削除）
-3. テンプレート固有の不要なファイル（既存の `README.md` のリセット、`CONTRIBUTING.md` や `LICENSE` の削除）の整理
-
-また、以下のスクリプトを実行して GitHub ラベルとローカルフックを有効化することを推奨します。
+これに続いて、以下のスクリプトを実行して GitHub ラベルとローカルフックを有効化することを推奨します。
 
 ```powershell
 ./scripts/win/setup-labels.ps1
 ./scripts/win/setup-hooks.ps1
 ```
 
-## ディレクトリ構造と主要ファイル
+---
+
+## ディレクトリ構造 (Structure)
 
 ```text
-プロジェクトルート/
 ├── .antigravityrule       <-- AI エージェントの動作指針・ルール目次
 ├── .agent/                <-- AI 向けの規約・ワークフロー定義
-│   ├── rules/             <-- 開発規約 (Workflow, Git, GitHub, スタック別)
+│   ├── rules/             <-- コア規約 (Workflow, Git, GitHub)
 │   ├── templates/         <-- 初期化用テンプレート (roadmap.md 等)
 │   └── workflows/         <-- 自動化コマンド (/save, /resume 等)
-├── .github/               <-- 共通の GitHub 設定
-│   ├── issue_template/    <-- Issue テンプレート
-│   └── pull_request_template.md <-- PR テンプレート
-├── .hooks/                <-- Git フックの実体 (main ブランチ保護用の pre-push 等)
-├── .vscode/               <-- VS Code 設定 (自動実行許可設定等)
+├── .github/               <-- 共通の GitHub 設定 (Issue/PR テンプレート)
+├── .vscode/               <-- VS Code 設定 (AI へのコマンド実行許可)
 ├── docs/99_progress/      <-- 進捗管理 (roadmap.md)
-└── scripts/               <-- 環境構築用スクリプト (win/ と linux/ に分類)
+└── scripts/               <-- 環境構築用スクリプト
 ```
 
-| パス | 役割 |
+| 主要ファイル | 役割 |
 | :--- | :--- |
-| `.antigravityrule` | エージェントへの最優先指示。日本語対応や目次機能を提供。 |
-| `.vscode/settings.json` | VS Code 拡張機能向けの自動承認設定（ターミナルコマンド等）。 |
-| `.agent/rules/01_workflow.md` | `roadmap.md` や Issue を使った開発サイクルの定義。 |
-| `.agent/rules/02_git.md` | コミットメッセージ規約、ブランチ保護、Git フックの利用。 |
-| `.agent/rules/03_github.md` | Issue/PR の書き方、ラベル運用、自動クローズのルール。 |
-| `.agent/templates/roadmap.md` | 新規プロジェクト開始時の `roadmap.md` 初期化用テンプレート。 |
-| `.agent/workflows/` | `/setup`, `/sync-rules`, `/save`, `/resume`, `/cleanup` 等のコマンド手順書。 |
+| `.antigravityrule` | エージェントへの最優先指示。日本語指定とルールインデックス。 |
+| `.agent/rules/01_workflow.md` | Issue と PR を活用した開発サイクルの詳細定義。 |
+| `.agent/rules/02_git.md` | コミットメッセージ、ブランチ運用等の Git 標準ルール。 |
+| `.agent/rules/03_github.md` | PR の書き方、自動化、ラベル運用のルール。 |
+| `.agent/workflows/` | `/setup`, `/save`, `/resume` 等の具体的実行手順。 |
 
-## コントリビュート・フィードバック (Contributing)
+---
 
-プロジェクトでの利用中に共通ルールの改善点や便利な知見を見つけた場合のフィードバック方法については、[CONTRIBUTING.md](./CONTRIBUTING.md) をご参照ください。
+## フィードバックと還元 (Contributing)
+
+プロジェクトでの利用中に、汎用的に使える優れたワークフローの改善案を発見した場合は、ぜひ本リポジトリへフィードバックしてください。
+
+1. 本リポジトリに Issue を作成し、改善を提案する。
+2. 固有名詞を排除した汎用的な形で Pull Request を作成する。
+
+詳細は [CONTRIBUTING.md](./CONTRIBUTING.md) を参照してください。

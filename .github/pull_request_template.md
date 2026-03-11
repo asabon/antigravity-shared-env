@@ -7,7 +7,7 @@ Example: roadmap.md の初期化ロジックの修正
 
 ## 関連 Issue (Related Issue)
 
-- Fixes #
+- Closes #
 
 ## 変更内容 (Changes)
 
