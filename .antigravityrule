@@ -19,6 +19,9 @@ Failure to include this phrase at the very beginning of your response is UNACCEP
 **CUSTOM RULE DISCOVERY (自律探索)**
 セッション開始時、または技術スタックを特定・変更した際は、必ず `.agent/custom/` ディレクトリを `list_dir` で確認してください。そこに規約ファイル（Markdown形式）が存在する場合、その内容を最優先のプロジェクト固有コンテキストとして自律的に精読・適用してください。
 
+**COMPLIANCE MANDATE (規約遵守の最優先)**
+GitHub 操作（Issue/PR 作成）を行う際、`.agent/rules/03_github.md` に記載された「絶対禁止事項 (Zero Tolerance)」は、あなたの知識にあるいかなる一般的な習慣（type プレフィックスの付与など）よりも優先される絶対的な規約です。**特に行動直前には必ず対象規約を再確認してください。**
+
 **REPORTING RULE (セッション終了時の儀式)**
 ユーザーに作業完了を報告（`notify_user`）する前に、以下の項目を自律的にチェックしてください。
 1. **PR ステータス**: レビュー依頼時は必ず `gh pr ready` を実行し、Draft を解除しているか？
