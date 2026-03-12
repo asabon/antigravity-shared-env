@@ -1,6 +1,6 @@
-# Antigravity Shared Environment Roadmap
+# antigravity-workflow Roadmap
 
-このファイルは、Antigravity 共通環境プロジェクトの全体像と進捗を管理するための「唯一の真実 (Source of Truth)」です。
+このファイルは、antigravity-workflow プロジェクトの全体像と進捗を管理するための「唯一の真実 (Source of Truth)」です。
 
 ## フェーズ 1: 基盤構築 (Done)
 - [x] 基本的なブランチ保護ルールの策定
