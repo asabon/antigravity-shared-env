@@ -9,7 +9,7 @@
 導入は以下の **2 ステップ** で完了します。
 
 ### ステップ 1: 初期導入 (Setup)
-新しいプロジェクトを開始する際に、本リポジトリの [.agent/workflows/setup.md](.agent/workflows/setup.md) を対象プロジェクトにコピーし、AI エージェントに以下を指示してください。
+新しいプロジェクトを開始する際に、本リポジトリの [.agent/workflows/setup-workflow.md](.agent/workflows/setup-workflow.md) を対象プロジェクトにコピーし、AI エージェントに以下を指示してください。
 > `/setup` を実行してプロジェクトを初期化してください。
 
 **この操作により、最新の共通規約、ワークフロー、および環境構築スクリプトが自動的にプロジェクトへインストールされます。**
@@ -39,7 +39,7 @@
 │   ├── rules/             <-- 共通規約 (同期対象)
 │   ├── custom/            <-- プロジェクト固有規約 (同期対象外)
 │   ├── templates/         <-- 初期化用テンプレート
-│   └── workflows/         <-- 自動化コマンド (/save, /setup, /sync-workflow 等)
+│   └── workflows/         <-- 自動化コマンド (/save, /setup-workflow, /sync-workflow 等)
 ├── .github/               <-- 共通の GitHub 設定
 ├── .vscode/               <-- VS Code 設定
 ├── docs/status/           <-- 進捗管理 (roadmap.md)
