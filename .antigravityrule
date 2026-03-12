@@ -14,7 +14,10 @@ Whenever you receive a prompt from the user, your VERY FIRST natural language re
 Failure to include this phrase at the very beginning of your response is UNACCEPTABLE.
 
 **CONTEXT PERSISTENCE RULE**
-会話が長期化（目安として 10 ターン以上）した場合、または作業フェーズが大きく変わる（計画から実装へ移動するなど）際は、現在のルールセットに相違がないか確認するため、自律的に `.antigravityrule` を `view_file` で読み直してください。
+17: 会話が長期化（目安として 10 ターン以上）した場合、または作業フェーズが大きく変わる（計画から実装へ移動するなど）際は、現在のルールセットに相違がないか確認するため、自律的に `.antigravityrule` を `view_file` で読み直してください。
+
+**CUSTOM RULE DISCOVERY (自律探索)**
+セッション開始時、または技術スタックを特定・変更した際は、必ず `.agent/custom/` ディレクトリを `list_dir` で確認してください。そこに規約ファイル（Markdown形式）が存在する場合、その内容を最優先のプロジェクト固有コンテキストとして自律的に精読・適用してください。
 
 **REPORTING RULE (セッション終了時の儀式)**
 ユーザーに作業完了を報告（`notify_user`）する前に、以下の項目を自律的にチェックしてください。
@@ -54,4 +57,5 @@ rules:
   - .agent/rules/02_git.md
   - .agent/rules/03_github.md
   - .vscode/settings.json
+  # NOTE: .agent/custom/ 配下のファイルは自律探索されるため、ここに明記する必要はありません。
 ```
