@@ -18,7 +18,7 @@ sequenceDiagram
     U->>R: 内容確認
     U->>S: /kickoff (または作業開始)
     S->>I: Issue特定・同期
-    S->>B: ブランチ作成
+    S->>B: ブランチ作成 & チェックアウト
     S->>P: Draft PR作成 (早期公開)
     
     Note over B,P: 実装フェーズ (CI/CD, 検証)
@@ -37,10 +37,10 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     Start([作業開始]) --> ReadRoadmap[Roadmap読込]
-    ReadRoadmap --> IdentifyIssue{Issue特定}
+    IdentifyIssue{Issue特定}
     IdentifyIssue -- 既存なし --> CreateIssue[Issue作成]
     IdentifyIssue -- 既存あり --> SyncIssue[Issue同期]
-    CreateIssue --> CreateBranch[ブランチ作成]
+    CreateIssue --> CreateBranch[ブランチ作成 & チェックアウト]
     SyncIssue --> CreateBranch
     CreateBranch --> UpdateRoadmap[Roadmapを着手中へ]
     UpdateRoadmap --> InitTaskMD[task.md 初期化]
