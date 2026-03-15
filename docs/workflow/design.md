@@ -4,22 +4,26 @@
 
 ## 1. 設計上の重要原則
 
-1. **GitHub Issue as the Source of Truth**: 設計判断やタスクリストの詳細は常に Issue に集約され、AI の `task.md` はその一時的な写しに過ぎません。
-2. **Early Draft PR**: コードの透明性を保つため、最初の Commit 直後に Draft PR を作成します。
-3. **Skill-Driven Execution**: 複雑な手順や定型作業は Skill (`SKILL.md` ＋ スクリプト) にカプセル化し、実行時の安定性と強制力を担保します。
-   - **Skill化すべき領域（Mechanical / 定型・確定性）**:
-     - **PREPARING (準備・着手)**: `kickoff-task`（ブランチ作成、`task.md`初期化、Draft PR）など、命名規則やテンプレートの強制が必須な領域
-     - **DEVELOPING (完了フロー)**: `wrapup-task`（最終動作検証、Roadmap更新、PR Ready化）など、品質・監査証跡を遵守すべき領域
-     - **REVIEWING (クリーンアップ)**: `/cleanup`（マージ済みローカルブランチの安全な削除、メインブランチへの退避、一時ファイル削除など、事故の起きやすい終了処理の自動化）
-     - **状態同期 (`/save`, `/resume`)**: セーブデータのデータ構造（スナップショット）の完全性・パースの確実性を保証すべき領域
-   - **AIの自律・対話に委ねる領域（Intelligence / 柔軟性）**:
-     - **PLANNING (計画)**: チャットでの高度な意見交換や、アイデアの発想・設計のすり合わせ
-     - **DEVELOPING (実装ループ)**: ツールを駆使した自由な試行錯誤やデバッグ（固定フローで縛ると柔軟性が落ちるため）
-   - **運用のハイブリッドモデル**:
-     - **明示的呼び出し**: ユーザーがコマンド（`/save` 等）で直接指示する（人間の作業時短用）
-     - **自律的呼び出し**: AIが文脈を判断し、自らガイドレール（安全装置）として Skill をロードして確実に実行する
-4. **Local-First Context with GitHub Backup**: 作業中の進捗（サブ状態）はローカル（`task.md`）で高速管理し、GitHub へのコメント（Checkpoint）は状態の大きな遷移時や `/save`（中断）の同期ポイントのみへ最小化します。これにより、実用的な応答速度と確実なバックアップ（Source of Truth）を両立させます。
-5. **Audit Trail for Direct Feedback**: ユーザーからチャットで直接受けた修正指示であっても、AIは実装・Push時にその修正理由（ユーザーからの指摘内容）を PR にコメントとして記録します。これにより、後から履歴を追う際の透明性を高めます。
+以下に、ワークフローを支える 5 つの原則をまとめます。
+
+| 原則 | 概要 / 目的 | 運用イメージ / 詳細 |
+| :--- | :--- | :--- |
+| **⚖️ 1. Dual Source of Truth** | マクロ（全体）とミクロ（タスク）の分離 | ・**Roadmap**: 全体ゴール、進捗管理<br>・**Issue**: 各タスクの詳細仕様、議論の記録 |
+| **📂 2. Early Draft PR** | 作業プロセスの透明化・可視化 | 最初の Commit 直後に Draft PR を作成し、ブラックボックス化を防止 |
+| **🛠️ 3. Skill-Driven Execution** | 定型作業の自動化 ＆ 思考の柔軟性確保 | 機械的作業は Skill、実装や計画は AI の試行錯誤に分担 |
+| **⚡ 4. Local-First Context** | 高速なレスポンス ＆ 確実なバックアップ | 進捗はローカル（`task.md`）で高速管理、適宜 GitHub に保存 |
+| **📝 5. Audit Trail** | 指摘対応の履歴・コンテキストの維持 | チャット指示による修正も、必ず PR コメントに足跡を残す |
+
+---
+
+### 💡 補足：Skill-Driven Execution の区分
+
+定型作業（Mechanical）と柔軟な作業（Intelligence）を以下のように区分し、安定性・効率を両立します。
+
+| 区分 | 特徴 / 目的 | 具体的な対象 |
+| :--- | :--- | :--- |
+| **Skill化 (ガードレール)** | バグが許されない、手順の強制が必須な領域 | ・**PREPARING**: `kickoff-task`<br>・**DEVELOPING**: `wrapup-task`<br>・**CLEANUP**: `/cleanup`<br>・**状態同期**: `/save`, `/resume` |
+| **AI の自律 (柔軟・試行錯誤)** | チャットのやり取りや臨機応変な実装・デバッグ | ・**PLANNING**: 計画・発案<br>・**DEVELOPING**: 実装ループ |
 
 ## 2. 状態遷移
 
@@ -100,6 +104,8 @@ sequenceDiagram
 
 - 目的
   - 実装作業（DEVELOPING）へスムーズに移行するための環境を整える
+- **ブランチ作成の方針**
+  - **GitHub-First**: Issue との強固な紐づけ（Traceability）を担保するため、ブランチは `gh` コマンド等を利用して **GitHub 上で先に発行** し、それをローカルにチェックアウトするフローを採用します。
 
 ```mermaid
 sequenceDiagram
