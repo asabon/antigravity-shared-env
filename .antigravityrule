@@ -33,6 +33,18 @@ GitHub 操作（Issue/PR 作成）を行う際、`.agent/rules/03_github.md` に
 
 ### 1. プロジェクト共通制約 (Core Constraints)
 
+#### 💡 コア・ワークフロー原則 (Core Principles)
+
+| 原則 | 概要 / 目的 | 運用リファレンス |
+| :--- | :--- | :--- |
+| **⚖️ Dual Source of Truth** | マクロ（全体）とミクロ（タスク）の分離 | ・**Roadmap**: 全体ゴール・進捗管理<br>・**Issue**: 詳細仕様・議論 |
+| **📂 Early Draft PR** | 作業プロセスの透明化・可視化 | 最初の Commit 直後に Draft PR を作成 |
+| **🛠️ Skill-Driven Execution** | 定型作業の自動化 ＆ 思考の柔軟性確保 | 定型は Skill化、実装や計画は AI の試行錯誤 |
+| **⚡ Local-First Context** | 高速なレスポンス ＆ 確実なバックアップ | `task.md` で高速管理、適宜 GitHub に保存 |
+| **📝 Audit Trail** | 指摘対応の履歴・コンテキストの維持 | チャット指示の修正も、必ず PR に記録を残す |
+
+#### 🛑 システム制約 (System Constraints)
+
 - **階層化構成 (Layered Configuration)**:
   - `.agent/rules/` にある基盤ルールよりも、`.agent/custom/` にあるプロジェクト固有ルールを優先してください。
   - Android 固有の規約や技術スタック特有の指示は `custom/` 配下を参照してください。
