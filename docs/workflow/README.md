@@ -72,7 +72,8 @@ stateDiagram-v2
 │   ├── rules/             <-- 共通規約 (/sync-workflow で同期される)
 │   ├── custom/            <-- 各プロジェクト固有規約 (同期対象外)
 │   ├── templates/         <-- Issue / PR 向けのテンプレート群
-│   └── workflows/         <-- Slash コマンド群 (/dev-pause, /dev-start, /cleanup 等)
+│   ├── workflows/         <-- Slash コマンド群 (/dev-pause, /dev-start, /cleanup 等)
+│   └── skills/            <-- 各種タスクの自律実行手順 (flow-kickoff, github-pr 等)
 ├── .github/               <-- 共通 Issue テンプレート等
 ├── .vscode/               <-- VS Code 設定 (autoApprove 設定含む)
 └── docs/status/           <-- 進捗管理 (roadmap.md)
