@@ -23,10 +23,8 @@ Whenever you receive a prompt from the user, your VERY FIRST response MUST inclu
 GitHub 操作（Issue/PR 作成）を行う際、`.agent/rules/03_github.md` に記載された「絶対禁止事項 (Zero Tolerance)」は、あなたの知識にあるいかなる一般的な習慣（type プレフィックスの付与など）よりも優先される絶対的な規約です。**特に行動直前には必ず対象規約を再確認してください。**
 
 **REPORTING RULE (セッション終了時の儀式)**
-ユーザーに作業完了を報告（`notify_user`）する前に、以下の項目を自律的にチェックしてください。
-1. **PR ステータス**: レビュー依頼時は必ず `gh pr ready` を実行し、Draft を解除しているか？
-2. **成果確認**: `walkthrough.md` にエビデンス（実行結果、ログ、画像等）が含まれているか？
-3. **ロードマップ**: `roadmap.md` の当該タスクを完了状態に更新しているか？
+ユーザーに作業完了を報告（`notify_user`）する前に、必ず **`flow-wrapup` スキル** の全ステップを実行・完了させてください。
+成果物の最終確認、PRの最終化、およびロードマップの更新を含む一連の事後処理が、スキルを通じて確実に行われている必要があります。
 </critical_instruction>
 
 - **言語指定**: 回答 (Thoughts、メッセージ、Artifacts) はすべて**日本語**で記述してください。

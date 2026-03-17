@@ -33,6 +33,8 @@ description: このプロジェクト専用の PR 運用ルールに沿った操
 ## 3. PR を Ready for review にする (最終化)
 - **最終検証の確認**:
   - PR 本文または現在のブランチに関連する検証事項（Verification）のチェックボックスがすべて完了（`[x]`）しているか確認します。
+- **自動検証の実行**:
+  - `powershell -ExecutionPolicy Bypass -File .agent/skills/github-pr/scripts/verify-pr.ps1 -PrNumber <PR番号>` を実行し、検証に合格することを確認します。
 - **Draft の解除**:
   - `gh pr ready <PR番号>`（または対象が一つなら `gh pr ready`）を実行し、Draft 状態を解除します。
 - **自律的な表示確認**:

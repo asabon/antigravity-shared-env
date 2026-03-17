@@ -13,7 +13,7 @@ description: このプロジェクト専用の Issue 運用ルールに沿った
   - `.github/issue_template/` 配下の適切なテンプレート（例：`task.md`）を使用します。
 
 - **安全な作成**:
-  - 長文になる場合は `temp/` 等に一時ファイルを生成し、`gh issue create --template <Template> --body-file <ファイル名>` で実行します。作成後、一時ファイルを削除します。
+  - 長文になる場合は一時ファイルを生成し、`gh issue create --template <Template> --body-file <ファイル名>` で実行します。作成後、一時ファイルを削除します。
 
 - **ラベルの付与**:
   - 作成時に必ず適切な **「分類ラベル」** を付与してください。
