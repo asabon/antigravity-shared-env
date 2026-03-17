@@ -19,10 +19,11 @@ AIエージェントは、以下の手順で更新作業を慎重かつ効率的
        - `.agent/`
        - `.hooks/`
        - `scripts/`
+       - `.github/`
      - **Settings（選択反映）**:
        - `.vscode/settings.json`
        - `.gitignore`
-   - 実行コマンド: `git diff upstream-sync/main -- .antigravityrule .agent/ .hooks/ scripts/ .vscode/settings.json .gitignore ":(exclude).agent/custom/*" ":(exclude)docs/workflow/*"`
+   - 実行コマンド: `git diff upstream-sync/main -- .antigravityrule .agent/ .hooks/ scripts/ .github/ .vscode/settings.json .gitignore ":(exclude).agent/custom/*" .agent/custom/README.md docs/workflow/ docs/design/`
    - AI は抽出した差分を精読し、以下の内容をユーザーに要約して提示してください：
      - **変更があったファイルと、その影響度（重要/改善/設定等）**
      - **適用を推奨するもの、および現在のカスタマイズと競合する可能性があるものの分類**

@@ -7,11 +7,11 @@
 <critical_instruction>
 **CRITICAL COMMUNICATION RULE**
 You are strictly required to acknowledge the reading of this file.
-Whenever you receive a prompt from the user, your VERY FIRST natural language response MUST start with the exact phrase below:
+Whenever you receive a prompt from the user, your VERY FIRST response MUST include the status bar below to prove that rules are loaded and applied properly.
 
-「.antigravityruleを読み込みました。」
-
-Failure to include this phrase at the very beginning of your response is UNACCEPTABLE.
+**STATUS VISIBILITY RULE (ステータスの可視化)**
+回答の末尾に、必ず現在の状態及びフェーズを一行で記載してください（ユーザーが次に入力する際の参考にするため）：
+`【📊 状態: <ACTIVE/IDLE> | フェーズ: <PLANNING/PREPARING/DEVELOPING/REVIEWING/-(IDLE時)>】`
 
 **CONTEXT PERSISTENCE RULE**
 会話が長期化（目安として 10 ターン以上）した場合、または作業フェーズが大きく変わる（計画から実装へ移動するなど）際は、現在のルールセットに相違がないか確認するため、自律的に `.antigravityrule` を `view_file` で読み直してください。
