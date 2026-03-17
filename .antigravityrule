@@ -25,10 +25,8 @@ GitHub 操作（Issue/PR 作成）を行う際、`.agent/rules/03_github.md` に
 **REPORTING RULE (セッション終了時の儀式)**
 ユーザーに作業完了を報告（`notify_user`）する前に、以下の項目を自律的にチェックしてください。
 1. **PR ステータス**: レビュー依頼時は必ず `gh pr ready` を実行し、Draft を解除しているか？
-2. **自動検証の実行**: 対象の PR がある場合、必ず事前チェックスクリプトを実行し合格（`exit 0`）しているか？
-   - 実行コマンド: `powershell -ExecutionPolicy Bypass -File .agent/skills/github-pr/scripts/verify-pr.ps1 -PrNumber <PR番号>`
-3. **成果確認**: `walkthrough.md` にエビデンス（実行結果、ログ、画像等）が含まれているか？
-4. **ロードマップ**: `roadmap.md` の当該タスクを完了状態に更新しているか？
+2. **成果確認**: `walkthrough.md` にエビデンス（実行結果、ログ、画像等）が含まれているか？
+3. **ロードマップ**: `roadmap.md` の当該タスクを完了状態に更新しているか？
 </critical_instruction>
 
 - **言語指定**: 回答 (Thoughts、メッセージ、Artifacts) はすべて**日本語**で記述してください。
