@@ -7,7 +7,24 @@
 
 ## 2. 開発ライフサイクル (Standard Workflow)
 
-開発は以下の 4 つの「状態（フェーズ）」を遷移しながら進みます。
+開発は「**セッション状態 (Session State)**」と「**フェーズ (Phase)**」の2軸で進行します。
+
+### 2-0. セッション状態と状態遷移表
+
+エージェントの活性状態とライフサイクルの関係は以下の通りです。
+
+| 現在の状態 | 現在のフェーズ | トリガー（イベント） | 🚀 次の状態 | 🚀 次のフェーズ | 備考 / アクション |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`IDLE`** | **`-`** | **セッション開始** / `/setup` | `ACTIVE` | `PLANNING` | ロードマップ確認から開始する |
+| **`IDLE`** | **`-`** | **`/dev-start`** | `ACTIVE` | *(自動判定)* | `01_workflow.md` 2-5 の自動判定による |
+| **`ACTIVE`** | `PLANNING` | **対象 Issue 等の確定** | `ACTIVE` | `PREPARING` | `flow-kickoff` の実行へ移行 |
+| **`ACTIVE`** | `PREPARING` | **`flow-kickoff` 完了** | `ACTIVE` | `DEVELOPING` | Draft PRが作成され、実装を開始 |
+| **`ACTIVE`** | `DEVELOPING` | **`flow-wrapup` 完了** | `ACTIVE` | `REVIEWING` | 自動検証パス、PR が Ready 状態 |
+| **`ACTIVE`** | `REVIEWING` | **マージ完了 ＆ `/cleanup`** | `ACTIVE` | `PLANNING` | 次のタスクの計画フェーズへ戻る |
+| **`ACTIVE`** | *Any* | **`/dev-pause` （中断・栞）** | **`IDLE`** | **`-`** | 栞を残してエージェントが待機 |
+| **`ACTIVE`** | `REVIEWING` | **マージ完了（次タスクなし）** | **`IDLE`** | **`-`** | プロジェクトの全フェーズ完了時 |
+
+---
 
 ### 2-1. 計画フェーズ (PLANNING)：タスクの選定
 - **目的**: 次に着手するタスク（Issue）を確定させる。
