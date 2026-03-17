@@ -23,6 +23,15 @@
 
 ユーザー（あなた）は大まかな方向だけを指示し、コマンドの詳細や安全性の検証は AI がスキル（自動操縦マニュアル）を読み込んで自律的に実施します。
 
+### 📥 2-A. アイデア・要望の出し方 (`backlog.md`)
+
+ユーザー（あなた）が「将来的にやりたいこと」や「ざっくりしたアイデア」を思いついたときは、**`docs/status/backlog.md`** に箇条書きでメモを残してください。
+
+- **書き場所**: 「📥 未分類の要望 (Unsorted Ideas)」の最下部
+- **AI の挙動**: エージェントは `PLANNING` フェーズでこのファイルを自動的にチェックし、要件定義とタスク分解を挟んで `roadmap.md`（ロードマップ）へ反映・提案します。
+
+---
+
 ### 📊 モードと状態遷移 (State Transitions)
 
 ```mermaid
@@ -75,5 +84,5 @@ stateDiagram-v2
 │   └── workflows/         <-- Slash コマンド群 (/dev-pause, /dev-start, /cleanup 等)
 ├── .github/               <-- 共通 Issue テンプレート等
 ├── .vscode/               <-- VS Code 設定 (autoApprove 設定含む)
-└── docs/status/           <-- 進捗管理 (roadmap.md)
+└── docs/status/           <-- 進捗管理 (roadmap.md, backlog.md)
 ```
