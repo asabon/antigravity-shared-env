@@ -11,15 +11,15 @@ AIエージェントは、以下の手順で現在のプロジェクトの初期
    - `git remote add upstream-bootstrap https://github.com/asabon/antigravity-workflow.git`
    - `git fetch upstream-bootstrap main`
    - **Core ファイルの強制同期**: 履歴を無視して最新のファイルのみを取得・上書きします。
-     - `git checkout upstream-bootstrap/main -- .antigravityrule .agent/ .hooks/ scripts/ ":(exclude).agent/custom/*"`
+     - `git checkout upstream-bootstrap/main -- .antigravityrule .agent/ .hooks/ scripts/ .github/ .vscode/settings.json .gitignore ":(exclude).agent/custom/*" .agent/custom/README.md docs/workflow/ docs/design/`
    - 同期完了後、リモートを削除してください： `git remote remove upstream-bootstrap`
 
 2. **ロードマップの初期化**
    - `docs/status/roadmap.md` の内容がプレースホルダー（例: `# [Project Name] Roadmap`）の場合、またはファイルが存在しない場合は、`.agent/templates/roadmap.md` をベースにして新しく作成してください。
 
 3. **階層化構成の初期化 (Custom Rules)**
-   - プロジェクト固有のルールを管理するためのディレクトリ `.agent/custom/` を作成し、基盤の `README.md` をコピーしてください。
-   - ユーザーに対し、現在使用している技術スタック（Android, Python 等）に応じた固有の規約がある場合は、このディレクトリ内にファイルを追加することを提案してください。
+   - 説明用 `.agent/custom/README.md` が適切に配備されていることを確認してください。
+   - ユーザーに対し、現在使用している技術スタック（Android, Python 等）に応じた固有の規約がある場合は、このディレクトリ内へファイルを追加することを提案してください。
 
 4. **テンプレート固有ファイルのクリーンアップ**
    - ルートの `README.md` を現在のプロジェクト向けに書き換えてください。
