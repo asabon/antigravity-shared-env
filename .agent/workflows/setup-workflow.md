@@ -15,7 +15,11 @@ AIエージェントは、以下の手順で現在のプロジェクトの初期
    - 同期完了後、リモートを削除してください： `git remote remove upstream-bootstrap`
 
 2. **ロードマップの初期化**
-   - `docs/status/roadmap.md` の内容がプレースホルダー（例: `# [Project Name] Roadmap`）の場合、またはファイルが存在しない場合は、`.agent/templates/roadmap.md` をベースにして新しく作成してください。
+   - `docs/status/roadmap.md` の初期化時、`.agent/templates/` 配下にある複数のテンプレートからプロジェクトの進め方に応じたものを**ユーザーに提示し、選択してもらってから**作成してください。
+     - `roadmap_phase.md`: 段階的な成長・マイルストーン重視型
+     - `roadmap_now_next_later.md`: アジャイル・優先順位重視型
+     - `roadmap_feature.md`: 機能・コンポーネントベース型
+   - 既存の `docs/status/roadmap.md` がプレースホルダーの場合、または存在しない場合にこの処理を行います。
 
 3. **階層化構成の初期化 (Custom Rules)**
    - 説明用 `.agent/custom/README.md` が適切に配備されていることを確認してください。
