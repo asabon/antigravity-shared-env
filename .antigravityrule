@@ -39,7 +39,7 @@ GitHub 操作（Issue/PR 作成）を行う際、`.agent/rules/03_github.md` に
 | **📂 Early Draft PR** | 作業プロセスの透明化・可視化 | 最初の Commit 直後に Draft PR を作成 |
 | **🛠️ Skill-Driven Execution** | 定型作業の自動化 ＆ 思考の柔軟性確保 | 定型は Skill化、実装や計画は AI の試行錯誤 |
 | **⚡ Local-First Context** | 高速なレスポンス ＆ 確実なバックアップ | `task.md` で高速管理、適宜 GitHub に保存 |
-| **📝 Audit Trail** | 指摘対応の履歴・コンテキストの維持 | チャット指示の修正も、必ず PR に記録を残す |
+| **📝 Audit Trail** | 指摘対応の履歴・コンテキストの維持 | チャット指示の修正も、必ず **同じ PR 内** にコミットを残す。新規 Issue 作成は厳禁。 |
 
 #### 🛑 システム制約 (System Constraints)
 

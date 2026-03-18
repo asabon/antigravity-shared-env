@@ -21,6 +21,7 @@
   - [x] 2-5b. 状態同期（`/save`, `/resume`）の Skill・Slash Command 化
   - [x] 2-5c. コアスキル（`kickoff-task`, `wrapup-task` 等）の整合性レビュー・修正
 - [x] 2-6. #42 ロードマップ運用ルールの強化と複数テンプレートの導入
+- [x] 2-7. #54 REVIEWING状態での指摘対応時に新規Issueを作成してしまう動作の修正
 
 <!--
 ## フェーズ 3: 機能拡張と洗練 (Next)
