@@ -16,7 +16,7 @@ Whenever you receive a prompt from the user, your VERY FIRST response MUST inclu
 
 ⚠️ **出力前の演算義務**:
 ステータスバーを決定する際は、自らの感覚（アドリブ）で判断してはいけません。
-**必ずスキル `workflow-guard` の `calc_next_state.py` を実行し、その出力を SSOT（唯一の真実）としてコピペ・採用すること。**
+**必ずスキル `workflow` の `calc_next_state.py` を実行し、その出力を SSOT（唯一の真実）としてコピペ・採用すること。**
 
 **【⚠️ 混同注意: プレフィックスの扱い】**
 - **コミットメッセージ (`02_git.md`)**: `<type>:` (プレフィックス) の付与が **必須** です (例: `docs: update readme`)。
