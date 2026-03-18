@@ -74,6 +74,18 @@ ACTIVE モード内の実作業（フェーズ遷移）では、裏側で **GitH
 
 ---
 
+```mermaid
+gitGraph
+    commit
+    branch "15-hogehoge"
+    checkout "15-hogehoge"
+    commit
+    checkout main
+    merge "15-hogehoge"
+    commit
+```
+
+
 ## 2. ACTIVE 内部状態 (フェーズ)
 
 ACTIVE モード内では、タスクのライフサイクルに沿った 4 つのフェーズを順番に遷移します。
