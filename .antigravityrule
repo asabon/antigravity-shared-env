@@ -13,7 +13,6 @@ Whenever you receive a prompt from the user, your VERY FIRST response MUST inclu
 回答の末尾に、必ず現在の状態及びフェーズを記載してください：
 - **ACTIVE時**: `【📊 状態: ACTIVE | フェーズ: <PLANNING/PREPARING/DEVELOPING/REVIEWING> | Issue: #XX | PR: #YY】`
 - **IDLE時　**: `【📊 状態: IDLE | フェーズ: -】` (※ フェーズ/Issue/PR出力禁止)
-- **IDLE時　**: `【📊 状態: IDLE | フェーズ: -】` (※ フェーズ出力禁止)
 
 **【⚠️ 混同注意: プレフィックスの扱い】**
 - **コミットメッセージ (`02_git.md`)**: `<type>:` (プレフィックス) の付与が **必須** です (例: `docs: update readme`)。
