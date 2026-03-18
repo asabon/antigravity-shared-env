@@ -64,16 +64,6 @@ stateDiagram-v2
 
 ACTIVE モード内の実作業（フェーズ遷移）では、裏側で **GitHub Flow** に基づく安全なトピックブランチ運用を実践しています。
 
-| ステップ | 実行されるアクション |
-| :--- | :--- |
-| **開く (Open)** | `PREPARING` フェーズで `main` からブランチ（例: `123-feature-name`）を作成。 |
-| **共有 (Share)** | 早期に **Draft PR** を発行し、作業進捗をリアルタイムに視覚化（共有）します。 |
-| **実装 (Commit)** | `DEVELOPING` フェーズでコードを追加。PR 上で自律的な試行錯誤を行います。 |
-| **最終化 (Final)** | `REVIEWING` フェーズで **`Ready for review`** へ移行（Draft解除）します。 |
-| **統合 (Merge)** | ユーザーによるマージ完了後、**`/cleanup`** で安全にブランチを自動削除します。 |
-
----
-
 ```mermaid
 gitGraph
     commit
@@ -84,6 +74,9 @@ gitGraph
     merge "15-hogehoge"
     commit
 ```
+
+* main への直接 commit, push は禁止 (hook で検知して拒否する)
+* issue 番号を prefix につけたブランチを作成して作業する
 
 
 ## 2. ACTIVE 内部状態 (フェーズ)
