@@ -13,6 +13,11 @@ Whenever you receive a prompt from the user, your VERY FIRST response MUST inclu
 回答の末尾に、必ず現在の状態及びフェーズを一行で記載してください（ユーザーが次に入力する際の参考にするため）：
 `【📊 状態: <ACTIVE/IDLE> | フェーズ: <PLANNING/PREPARING/DEVELOPING/REVIEWING/-(IDLE時)>】`
 
+**【⚠️ 混同注意: プレフィックスの扱い】**
+- **コミットメッセージ (`02_git.md`)**: `<type>:` (プレフィックス) の付与が **必須** です (例: `docs: update readme`)。
+- **Issue / PR タイトル (`03_github.md`)**: プレフィックスの混入は **厳禁** です (例: `READMEの更新` / 純粋な日本語のみ)。
+
+
 **CONTEXT PERSISTENCE RULE**
 会話が長期化（目安として 10 ターン以上）した場合、または作業フェーズが大きく変わる（計画から実装へ移動するなど）際は、現在のルールセットに相違がないか確認するため、自律的に `.antigravityrule` を `view_file` で読み直してください。
 
