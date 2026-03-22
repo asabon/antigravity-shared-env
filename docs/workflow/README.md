@@ -13,6 +13,10 @@
 2. **AI エージェントへの指示**:
    - チャットで **`/setup-workflow`** の実行を指示してください。
    - ※自動的に最新の共通規約、Git フック、GitHub ラベル等がインストール・構成されます。
+3. **GitHub リポジトリ設定の変更 (オーナー推奨)**:
+   - リポジトリの `Settings` > `General` > `Pull Requests` に移動します。
+   - `Allow squash merging` のドロップダウン設定を **`Pull request title`** (または `Pull request title and description`) に変更してください。
+   - ※これにより、コミット数が1つのPRでもマージコミットにプレフィックス（`feat:`等）が混入するのを防ぎ、クリーンな履歴を保てます。
 
 > [!TIP]
 > 導入後は、**`/sync-workflow`** を定期的に実行するだけで、本リポジトリ側で改善された最新のワークフローを反映できます。

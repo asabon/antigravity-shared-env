@@ -57,6 +57,8 @@ PR を作成・管理する際は、必ず **Skill `github-pr`** を使用して
 ## 5. マージと履歴管理
 - **戦略**: 原則として **Squash and merge** を使用します。
 - **コミットメッセージ**: Squash マージ時のメッセージには、**PR タイトル** をそのまま使用してください。これにより `main` の履歴がリリースノートとして読みやすくなります。
+- **リポジトリ設定（管理者推奨）**: コミット数が1つのPRでもPRタイトルが確実に採用されるよう、GitHubの `Settings` > `General` > `Allow squash merging` > デフォルトメッセージ設定を **`Pull request title`** (もしくは `Pull request title and description`) にすることを強く推奨します。
+
 
 ## 6. 実行権限
 - **ユーザー（人間）限定**: `main` ブランチへの直接 push、および PR の承認 (Approve) / マージ (Merge)。
