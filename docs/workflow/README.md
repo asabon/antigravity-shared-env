@@ -43,8 +43,9 @@ stateDiagram-v2
     state "IDLE" as Idle
     state "ACTIVE" as Active
 
-    [*] --> Idle: Antigravity 起動
-    Idle --> Active: /dev-start
+    [*] --> Idle: 起動 (タスクなし)
+    [*] --> Active: 起動 (自動スキャンで作業中を検知)
+    Idle --> Active: /dev-start 等でタスク着手
     Active --> Idle: /dev-pause
 ```
 
@@ -52,8 +53,8 @@ stateDiagram-v2
 
 |状態|説明|
 |:---|:---|
-|IDLE|通常チャット・会話モード|
-|ACTIVE|開発・ワークフローモード|
+|IDLE|通常チャットモード（タスク未着手時、自動スキャンでタスクがない場合）|
+|ACTIVE|開発ワークフローモード（自動スキャンで復旧、またはタスク着手時）|
 
 ---
 
