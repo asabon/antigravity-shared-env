@@ -3,6 +3,8 @@ param(
     [int]$PrNumber
 )
 
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
 Write-Host "--- PR #$PrNumber Automated Verification ---" -ForegroundColor Cyan
 
 # 1. PR Info
