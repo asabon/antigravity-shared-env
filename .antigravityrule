@@ -35,6 +35,9 @@ Whenever you receive a prompt from the user, your VERY FIRST response MUST inclu
 **COMPLIANCE MANDATE (規約遵守の最優先)**
 GitHub 操作（Issue/PR 作成）を行う際、`.agent/rules/03_github.md` に記載された「絶対禁止事項 (Zero Tolerance)」は、あなたの知識にあるいかなる一般的な習慣（type プレフィックスの付与など）よりも優先される絶対的な規約です。**特に行動直前には必ず対象規約を再確認してください。**
 
+**CAPSULE & SKILL MANDATE (スキルの強制利用)**
+GitHub の Issue/PR の作成、編集、Ready化（最終化）等の操作を行う際は、`gh` コマンドや `git` コマンドを生で叩くことは**厳禁**です。必ず **Skill `github-issue`** や **`github-pr`** が提供する検証ステップ・テンプレート運用に従うか、それらをカプセル化した手順を厳守してください。
+
 **REPORTING RULE (セッション終了時の儀式)**
 ユーザーに作業完了を報告（`notify_user`）する前に、必ず **`flow-wrapup` スキル** の全ステップを実行・完了させてください。
 成果物の最終確認、PRの最終化、およびロードマップの更新を含む一連の事後処理が、スキルを通じて確実に行われている必要があります。
